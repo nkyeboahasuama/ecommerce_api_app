@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializer import ProductSerializer, CategorySerializer
-from .models import Product, Category
+from .serializer import *
+from .models import *
 
 # Create your views here.
 @api_view(['GET'])
@@ -11,7 +11,9 @@ def apiOverview(request):
     api_urls = {
         'product-list':'/product-list/',
         'product-detail':'/product-detail/',
-        'category-list':'/category-list/'
+        'category-list':'/category-list/',
+        'cart-items':'/cart-items/',
+        'checkout':'/checkout'
     }
     return Response(api_urls)
 
@@ -66,6 +68,11 @@ def category_list(request):
         return Response(serializer.data)
 
 
-
-
+@api_view(['GET'])
+def order_items(request):
+    user = request.user
+    print(user)
+    cart, created = Order.objects.get_or_create(user=user)
+    serializer = OrderSerializer(cart)
+    return Response(serializer.data)
 
