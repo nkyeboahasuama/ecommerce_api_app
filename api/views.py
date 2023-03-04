@@ -12,7 +12,7 @@ def apiOverview(request):
         'product-list':'/product-list/',
         'product-detail':'/product-detail/',
         'category-list':'/category-list/',
-        'cart-items':'/cart-items/',
+        'order-items':'/order-items/',
         'checkout':'/checkout'
     }
     return Response(api_urls)
