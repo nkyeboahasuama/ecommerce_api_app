@@ -7,6 +7,9 @@ class Category(models.Model):
     name = models.CharField(max_length=200)
     description = models.CharField(max_length=200, blank=True, null=True)
 
+    class Meta:
+        verbose_name_plural = 'Categories'
+
     def __str__(self):
         return self.name
 
@@ -14,11 +17,12 @@ class Category(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=200)
-    price = models.FloatField()
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    price = models.DecimalField(decimal_places=2, max_digits=20)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='category')
 
     def __str__(self):
         return self.name
+
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -26,7 +30,6 @@ class Order(models.Model):
 
     def __str__(self):
         return str(self.user)
-
 
     @property
     def total(self):

@@ -3,11 +3,11 @@ from . import views
 
 urlpatterns = [
     path('', views.apiOverview),
-    path('product-list/', views.product_list, name="products-list"),
-    path('product-detail/<str:pk>/', views.product_detail, name="product-detail"),
-    path('category-list/', views.category_list, name="category-list"),
+    path('product-list/', views.apiProducts, name="products-list"),
+    path('product-list/<str:pk>/', views.ProductDetail.as_view(), name="product-detail"),
+    path('category-list/', views.CategoryList.as_view(), name="category-list"),
+    path('category-list/<str:pk>/', views.CategoryDetail.as_view(), name="category-detail"),
     path('order-items/', views.order_items, name="order-items"),
-
-
 ]
+
 
